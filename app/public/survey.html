@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -149,7 +148,7 @@
                     <option value="5">5- Strongly Disagree</option>
                 </select>
             </div>
-            
+
         </div>
         <button type="submit" class="btn btn-primary button">Submit</button>
     </div>
@@ -157,21 +156,30 @@
 
 <!-- Front End Script -->
 
-<script type= "text/javascript">
-$('.button').on('click',(event)=>{
-    event.preventDefault();
-    let newProfile= [];
-    let name = $('#name').val().trim();
-    let url = $('#photo-url').val().trim();
-    newProfile.push(name).push(url);
-    
-    for(let i = 1; i<=10;i++){
-        let answer = $(`#question${i}`).val();
-        newProfile.push(answer);
-    }
-    console.log(newProfile);
-    // module.exports= newProfile;
-})
+<script type="text/javascript">
+    $('.button').on('click', (event) => {
+        event.preventDefault();
+        let newProfile = [];
+        let name = $('#name').val().trim();
+        let url = $('#photo-url').val().trim();
+
+        for (let i = 1; i <= 10; i++) {
+            let answer = $(`#question${i}`).val();
+            newProfile.push(answer);
+        }
+        console.log(newProfile);
+        let friend = {
+            name,
+            url,
+            newProfile
+        }
+        $.ajax({ method: 'POST', url: '/api/match',data:friend})
+        .then(function(err,result){
+            if(err)throw err;
+            console.log(result)
+        })
+    })
+
 
 
 </script>
