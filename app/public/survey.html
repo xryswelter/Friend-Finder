@@ -28,8 +28,29 @@
             </div>
         </form>
         <div class="survey"></div>
-        <button type="submit" class="btn btn-primary button">Submit</button>
+        <button type="submit" class="btn btn-primary button" data-toggle="modal" data-target="#results">Submit</button>
     </div>
+
+    <!-- Modal If it worked
+    <div class="modal fade" id="results" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Your best friend is:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </body>
 
 <!-- Front End Script -->
@@ -52,7 +73,7 @@
             for (let i = 0; i < questions.length; i++) {
                 $('.survey').append(
                     `
-                    <h4>Question ${i+1}</h4>
+                    <h4>Question ${i + 1}</h4>
             <h5>${questions[i]}</h5>
             <div class="input-group mb-3">
                 <select class="custom-select" id="question${i}">
@@ -66,7 +87,7 @@
             </div>`)
             };
             // $('.survey').append(`<button type="submit" class="btn btn-primary button">Submit</button>`);
-            console.log('poo');
+            // console.log('poo');
         }
 
         createSurvey(questions);
@@ -77,11 +98,11 @@
             let name = $('#name').val().trim();
             let url = $('#photo-url').val().trim();
 
-            for (let i = 0; i <= questions.length-1; i++) {
+            for (let i = 0; i <= questions.length - 1; i++) {
                 let answer = parseInt($(`#question${i}`).val());
                 newProfile.push(answer);
             }
-            console.log(newProfile);
+            // console.log(newProfile);
             let friend = {
                 name,
                 url,
@@ -96,9 +117,12 @@
                 data: friend
             })
                 .then(function (err, result) {
-                    console.log('moo');
+                    // console.log('moo');
                     if (err) throw err;
-                    console.log(result);
+                    // console.log('Result = ' + result);
+
+                    //From here I would have a module with the results show up on the page using something like below.
+                    // $('h5').append(`<h4>${result.name}</h4>`)
                 })
         })
     })
